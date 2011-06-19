@@ -2,12 +2,12 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'mysql'
+gem 'nokogiri'
 
-gem "require_relative"
-gem 'sqlite3'
 
-gem 'ruby-debug'
-
-gem 'rspec-rails'
+group :test, :development do
+  gem "require_relative"
+  gem 'ruby-debug'
+  gem 'rspec-rails'
+end

@@ -10,6 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110619001458) do
+
+  create_table "image_urls", :force => true do |t|
+    t.integer  "listing_id"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "listings", :force => true do |t|
+    t.string   "url"
+    t.string   "neighborhood"
+    t.string   "location"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "posted_at"
+  end
 
 end

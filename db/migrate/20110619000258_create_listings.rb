@@ -4,6 +4,7 @@ class CreateListings < ActiveRecord::Migration
       t.string :url
       t.string :neighborhood
       t.string :location
+      t.string :title
       t.text :body
       t.integer :price
 

@@ -53,19 +53,27 @@ class CraigslistSearch
 
   def fetch_listings(urls)
     urls.each do |url|
-      store(Nokogiri::HTML(open(url)))
+      store(Nokogiri::HTML(open(url)), url)
     end
   end
 
-  def store(doc)
-    url
-    neighborhood
-    location
-    body
-    image urls
-    price
-    debugger
-    1
+  def store(doc, url)
+    price, title, neighborhood = doc.css('h2').text.scan(/^\$(\d+)(.*)\((.*)\)$/).first
+
+    listing = Listing.new(:price => price, :title => title, :neighborhood => neighborhood) do |l|
+      l.posted_at = Date.parse(doc.text.scan(/Date: (\d{4}-\d{2}-\d{2})/).first.first)
+      l.url = url
+      l.body = doc.css('div#userbody').text # TODO: xss?
+      # l.location #TODO
+    end
+
+
+    listing.save!
+    puts listing.id
+
+    doc.css('img').each do |img|
+      listing.image_urls.create!(:url => img.attr(:src))
+    end
 
   end
 
